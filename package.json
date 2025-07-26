@@ -1,0 +1,21 @@
+{
+  "name": "api_champions-dio",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "dist": "tsup src",
+    "start:dev": "tsx --env-file=.env src/server.ts",
+    "start:watch": "tsx watch --env-file=.env src/server.ts",
+    "start:dist": "npm run dist && node dist/src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

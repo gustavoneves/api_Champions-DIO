@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
-import { getPlayerByIdService, getPlayerService } from "../services/players-service";
+import { createPlayerService, getPlayerByIdService, getPlayerService } from "../services/players-service";
+import { badRequest, noContent } from "../utils/http-helper";
+
 
 export const getPlayer = async (request: Request, response: Response) => {
     const httpResponse = await getPlayerService();
@@ -10,4 +12,17 @@ export const getPlayerById = async (request: Request, response: Response) => {
     const id = parseInt(request.params.id);
     const httpResponse = await getPlayerByIdService(id);
     response.status(httpResponse.statusCode).json(httpResponse.body);
+}
+
+export const postPlayer = async (request: Request, response: Response) => {
+    const bodyValue = request.body;
+    const httpResponse = await createPlayerService(bodyValue);
+
+    if(httpResponse){
+        response.status(httpResponse.statusCode).json(httpResponse.body);
+    }
+    // else{
+    //     const res = await noContent();
+    //     response.status(res.statusCode).json(res.body);
+    // }
 }

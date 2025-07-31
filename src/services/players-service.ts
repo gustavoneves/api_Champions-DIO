@@ -1,5 +1,7 @@
+import { updatePlayer } from "../controllers/players-controller";
 import { PlayerModel } from "../models/player-model";
-import { deleteOnePlayer, findAllPlayers, findPlayerById, insertPlayer } from "../repositories/player-repository";
+import { statisticsModel } from "../models/statistics-model";
+import { deleteOnePlayer, findAllPlayers, findAndModifyPlayer, findPlayerById, insertPlayer } from "../repositories/player-repository";
 import { badRequest, created, noContent, ok } from "../utils/http-helper";
 
 export const getPlayerService = async () => {
@@ -55,12 +57,19 @@ export const deletePlayerService = async (id: number) => {
         response = await badRequest();
     }
 
-    // if(data){
-    //     response = await ok(data);
-    // }
-    // else{
-    //     response = await badRequest();
-    // }
-    
+    return response;
+}
+
+export const updatePlayerService = async (id: number, statistics: statisticsModel) => {
+    let response = null;
+    const status = await findAndModifyPlayer(id, statistics);
+
+    if(status !== -1){
+        response = await ok({message: "updated"});
+    }
+    else{
+        response = await badRequest();
+    }
+
     return response;
 }
